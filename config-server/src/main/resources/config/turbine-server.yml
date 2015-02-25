@@ -1,6 +1,11 @@
+info:
+  component: turbine
+
 turbine:
-  appConfig: capella-webb
+  appConfig: api-gateway
   clusterNameExpression: 'default'
+  amqp:
+    port: ${AMQP_PORT:8991}
 
 server:
   port: ${PORT:8989}
