@@ -1,0 +1,128 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.1.BUILD-SNAPSHOT'
+        springCloudVersion = '1.0.0.RC3'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        jcenter()
+        maven { url "https://repo.spring.io/plugins-snapshot" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:0.3.1.BUILD-SNAPSHOT"
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse-wtp'
+    apply plugin: "io.spring.dependency-management"
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "http://m2.neo4j.org/content/repositories/releases" }
+    }
+    
+    eclipse {    	
+    	classpath {
+    		downloadSources = true
+    		downloadJavadoc = true
+    	}
+    }
+
+//    dependencyManagement {
+//        dependencies {
+//            dependencySet(group:"org.springframework.boot", version: "1.2.1.BUILD-SNAPSHOT") {
+//                entry "spring-boot-starter-actuator"
+//                entry "spring-boot-actuator"
+//                entry "spring-boot-starter"
+//                entry "spring-boot-starter-web"
+//                entry "spring-boot-starter-actuator"
+//                entry "spring-boot"
+//                entry "spring-boot-autoconfigure"
+//            }
+//        }
+//    }
+}
+
+subprojects {
+    apply plugin: 'spring-boot'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    dependencies {
+        compile("org.springframework.boot:spring-boot-starter-web")
+        compile("org.springframework.boot:spring-boot-starter-actuator")
+        compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.1.0.RELEASE")
+        compile("org.springframework.cloud:spring-cloud-spring-service-connector:1.1.0.RELEASE")
+        compile("org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}")
+        compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
+
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+    }
+}
+
+project(':config-server') {
+    jar {
+        baseName = 'config-server'
+        version = '0.0.1-SNAPSHOT'
+    }
+
+    dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
+        compile("org.springframework.cloud:spring-cloud-config-server:${springCloudVersion}")
+    }
+}
+
+project(':eureka-server') {
+    jar {
+        baseName = 'eureka-server'
+        version = '0.0.1-SNAPSHOT'
+    }
+
+    dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-eureka-server:${springCloudVersion}")      
+    }
+
+//    configurations.all {
+//        exclude group: "org.slf4j", module: "log4j-over-slf4j"
+//        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+//    }
+
+    springBoot {
+        requiresUnpack = ['com.netflix.eureka:eureka-core', 'com.netflix.eureka:eureka-client']
+    }
+}
+
+project(':hystrix-server') {
+    jar {
+        baseName = 'hystrix-server'
+        version = '0.0.1-SNAPSHOT'
+    }
+
+    dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-hystrix-dashboard:${springCloudVersion}")
+    }
+}
+
+project(':turbine-server') {
+    jar {
+        baseName = 'turbine-server'
+        version = '0.0.1-SNAPSHOT'
+    }
+
+    dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-turbine-amqp:${springCloudVersion}")
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}

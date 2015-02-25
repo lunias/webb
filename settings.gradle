@@ -1,0 +1,1 @@
+include "config-server", "eureka-server", "hystrix-server", "turbine-server"
