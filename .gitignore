@@ -22,3 +22,5 @@ out
 .project
 .classpath
 .settings
+
+gradle-app.setting
