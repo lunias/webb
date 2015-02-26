@@ -2,8 +2,8 @@ info:
   component: turbine
 
 turbine:
-  appConfig: peoplesoft-server
-  clusterNameExpression: 'default'
+  appConfig: gateway-server
+  clusterNameExpression: new String('default')
   amqp:
     port: ${AMQP_PORT:8991}
 

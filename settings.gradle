@@ -1,1 +1,1 @@
-include "config-server", "eureka-server", "hystrix-server", "turbine-server", "peoplesoft-server"
+include "config-server", "eureka-server", "hystrix-server", "turbine-server", "peoplesoft-server", "gateway-server"

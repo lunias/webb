@@ -1,5 +1,14 @@
 server:
-  port: ${PORT:6000}
+  port: ${PORT:8080}
+  
+spring:
+  datasource:
+    dataSourceClassName: oracle.jdbc.pool.OracleDataSource
+    url: jdbc:oracle:thin:@dvcadb04.capella.edu:1521:CS90DEV
+    databaseName: CS90DEV
+    serverName: dvcadb04.capella.edu:1521
+    username: hubble_app
+    password: hubble01
   
 eureka:
   instance:
