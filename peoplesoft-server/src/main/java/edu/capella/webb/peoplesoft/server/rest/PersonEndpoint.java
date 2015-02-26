@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 import edu.capella.webb.peoplesoft.server.domain.Person;
 import edu.capella.webb.peoplesoft.server.repository.PersonRepository;
 
@@ -23,6 +25,7 @@ public class PersonEndpoint {
 		this.personRepository = personRepository;
 	}
 	
+	@HystrixCommand
 	@RequestMapping(method = RequestMethod.GET, value = "/people")
 	public ResponseEntity<List<Person>> getPeople() {
 		
