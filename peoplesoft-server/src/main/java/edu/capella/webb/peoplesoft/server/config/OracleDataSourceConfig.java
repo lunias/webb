@@ -12,6 +12,7 @@ import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -26,13 +27,16 @@ import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import edu.capella.webb.peoplesoft.server.util.Constant;
+
 @Configuration
 @EnableTransactionManagement
 @EntityScan(basePackages = "edu.capella.webb.peoplesoft.server.domain")
 @EnableJpaRepositories(basePackages = "edu.capella.webb.peoplesoft.server.repository")
-public class DataSourceConfig implements EnvironmentAware {
+@Profile("!" + Constant.SPRING_PROFILE_DEVELOPMENT)
+public class OracleDataSourceConfig implements EnvironmentAware {
 
-	private final Logger log = LoggerFactory.getLogger(DataSourceConfig.class);
+	private final Logger log = LoggerFactory.getLogger(OracleDataSourceConfig.class);
 	
     private RelaxedPropertyResolver propertyResolver;
 	
