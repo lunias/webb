@@ -33,7 +33,7 @@ import edu.capella.webb.peoplesoft.server.util.Constant;
 @EnableTransactionManagement
 @EntityScan(basePackages = "edu.capella.webb.peoplesoft.server.domain")
 @EnableJpaRepositories(basePackages = "edu.capella.webb.peoplesoft.server.repository")
-@Profile("!" + Constant.SPRING_PROFILE_DEVELOPMENT)
+@Profile({Constant.SPRING_PROFILE_STAGE, Constant.SPRING_PROFILE_QA, Constant.SPRING_PROFILE_PRODUCTION})
 public class OracleDataSourceConfig implements EnvironmentAware {
 
 	private final Logger log = LoggerFactory.getLogger(OracleDataSourceConfig.class);

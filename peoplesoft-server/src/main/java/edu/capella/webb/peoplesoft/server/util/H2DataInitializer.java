@@ -6,12 +6,14 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import edu.capella.webb.peoplesoft.server.domain.learnerInfo.PSLearnerInfoV;
 import edu.capella.webb.peoplesoft.server.repository.PSLearnerInfoVRepository;
 
 @Component
+@Profile({Constant.SPRING_PROFILE_DEVELOPMENT, Constant.SPRING_PROFILE_STAND_ALONE})
 public class H2DataInitializer implements InitializingBean {
 
 	@Autowired

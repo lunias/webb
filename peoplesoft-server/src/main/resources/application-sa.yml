@@ -3,7 +3,7 @@ server:
 
 spring:
     profiles:
-        active: dev
+        active: sa
     
     datasource:
         dataSourceClassName: org.h2.jdbcx.JdbcDataSource
@@ -26,5 +26,13 @@ spring:
             hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
+            
+    cloud:
+        circuit.breaker.enabled: false
+        discovery.enabled: false
+            
+logging:
+    level:
+         org.springframework.amqp: FATAL
       
             

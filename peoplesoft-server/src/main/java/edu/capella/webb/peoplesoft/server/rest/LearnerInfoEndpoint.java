@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,6 @@ import edu.capella.webb.peoplesoft.server.domain.learnerInfo.LearnerInfoResource
 import edu.capella.webb.peoplesoft.server.domain.learnerInfo.PSLearnerInfoV;
 import edu.capella.webb.peoplesoft.server.repository.PSLearnerInfoVRepository;
 
-@ExposesResourceFor(PSLearnerInfoV.class)
 @RestController
 @RequestMapping("/api/learnerInfo")
 public class LearnerInfoEndpoint {
@@ -40,7 +38,7 @@ public class LearnerInfoEndpoint {
 	@HystrixCommand(commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
 	})	
-	@RequestMapping(method = RequestMethod.GET, value = "/")
+	@RequestMapping(method = RequestMethod.GET, value = "")
 	public ResponseEntity<PagedResources<LearnerInfoResource>> getLearnerInfo(Pageable pageable, PagedResourcesAssembler<PSLearnerInfoV> assembler) {
 		
 		Page<PSLearnerInfoV> page = psLearnerInfoVRepository.findAll(pageable);	
