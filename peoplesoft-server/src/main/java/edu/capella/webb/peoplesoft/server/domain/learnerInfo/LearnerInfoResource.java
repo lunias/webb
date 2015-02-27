@@ -1,103 +1,36 @@
-package edu.capella.webb.peoplesoft.server.domain;
+package edu.capella.webb.peoplesoft.server.domain.learnerInfo;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.hateoas.ResourceSupport;
 
-import edu.capella.webb.peoplesoft.server.domain.util.YesOrNoConverter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@Entity
-@IdClass(PSLearnerInfoVPK.class)
-@Table(name = "SYSADM.PS_CU_LRNR_INFO_V")
-public class PSLearnerInfoV implements Serializable {
-	
-	private static final long serialVersionUID = -1173332404762584667L;			
-	
-	@Id
-	@Column(name = "EMPLID")
+import edu.capella.webb.peoplesoft.server.domain.util.CustomDateTimeSerializer;
+
+public class LearnerInfoResource extends ResourceSupport {
+
 	private String employeeId;
-	
-	@Column(name = "SUBJECT")
 	private String subject;
-
-	@Id
-	@Column(name = "CATALOG_NBR")
 	private String catalogNumber;
-	
-	@Id
-	@Column(name = "CRSE_ATTR")	
 	private String courseAttribute;
-	
-	@Id
-	@Column(name = "CRSE_ATTR_VALUE")		
 	private String courseAttributeValue;
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")	
-	@Column(name = "TERM_BEGIN_DT")
 	private DateTime termBeginDate;
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")	
-	@Column(name = "TERM_END_DT")
 	private DateTime termEndDate;
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	@Column(name = "SESS_BEGIN_DT")
 	private DateTime sessionBeginDate;
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	@Column(name = "SESS_END_DT")
 	private DateTime sessionEndDate;
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	@Column(name = "START_DT")
 	private DateTime startDate;
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	@Column(name = "END_DT")
 	private DateTime endDate;
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	@Column(name = "CENSUS_DT")	
 	private DateTime censusDate;
-	
-	@Column(name = "DESCR")
 	private String description;
-	
-	@Convert(converter = YesOrNoConverter.class)
-	@Column(name = "INCLUDE_IN_GPA")
 	private Boolean includeInGpa;
-	
-	@Convert(converter = YesOrNoConverter.class)	
-	@Column(name = "EARN_CREDIT")
 	private Boolean earningCredit;
-	
-	@Column(name = "UNT_EARNED")
 	private Integer unitsEarned;
-	
-	@Convert(converter = YesOrNoConverter.class)	
-	@Column(name = "VALID_ATTEMPT")
 	private Boolean validAttempt;
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	@Column(name = "ENRL_ADD_DT")		
 	private DateTime enrollAddDate;
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	@Column(name = "ENRL_DROP_DT")		
 	private DateTime enrollDropDate;
-	
-	@Column(name = "OPRID")
 	private String oprId;
 	
-	public PSLearnerInfoV() {
+	public LearnerInfoResource() {
 		
 	}
 
@@ -141,6 +74,7 @@ public class PSLearnerInfoV implements Serializable {
 		this.courseAttributeValue = courseAttributeValue;
 	}
 
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public DateTime getTermBeginDate() {
 		return termBeginDate;
 	}
@@ -149,6 +83,7 @@ public class PSLearnerInfoV implements Serializable {
 		this.termBeginDate = termBeginDate;
 	}
 
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public DateTime getTermEndDate() {
 		return termEndDate;
 	}
@@ -157,6 +92,7 @@ public class PSLearnerInfoV implements Serializable {
 		this.termEndDate = termEndDate;
 	}
 
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public DateTime getSessionBeginDate() {
 		return sessionBeginDate;
 	}
@@ -165,6 +101,7 @@ public class PSLearnerInfoV implements Serializable {
 		this.sessionBeginDate = sessionBeginDate;
 	}
 
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public DateTime getSessionEndDate() {
 		return sessionEndDate;
 	}
@@ -173,6 +110,7 @@ public class PSLearnerInfoV implements Serializable {
 		this.sessionEndDate = sessionEndDate;
 	}
 
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public DateTime getStartDate() {
 		return startDate;
 	}
@@ -181,6 +119,7 @@ public class PSLearnerInfoV implements Serializable {
 		this.startDate = startDate;
 	}
 
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public DateTime getEndDate() {
 		return endDate;
 	}
@@ -188,7 +127,8 @@ public class PSLearnerInfoV implements Serializable {
 	public void setEndDate(DateTime endDate) {
 		this.endDate = endDate;
 	}
-
+	
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public DateTime getCensusDate() {
 		return censusDate;
 	}
@@ -237,6 +177,7 @@ public class PSLearnerInfoV implements Serializable {
 		this.validAttempt = validAttempt;
 	}
 
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public DateTime getEnrollAddDate() {
 		return enrollAddDate;
 	}
@@ -245,6 +186,7 @@ public class PSLearnerInfoV implements Serializable {
 		this.enrollAddDate = enrollAddDate;
 	}
 
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public DateTime getEnrollDropDate() {
 		return enrollDropDate;
 	}

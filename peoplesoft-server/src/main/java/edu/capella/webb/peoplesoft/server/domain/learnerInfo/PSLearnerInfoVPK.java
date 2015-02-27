@@ -1,4 +1,4 @@
-package edu.capella.webb.peoplesoft.server.domain;
+package edu.capella.webb.peoplesoft.server.domain.learnerInfo;
 
 import java.io.Serializable;
 

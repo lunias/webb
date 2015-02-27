@@ -13,11 +13,17 @@ import org.springframework.boot.context.embedded.MimeMappings;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
+import org.springframework.http.MediaType;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import edu.capella.webb.peoplesoft.server.util.Constant;
 
 @Configuration
-public class WebConfig implements ServletContextInitializer, EmbeddedServletContainerCustomizer {
+@EnableHypermediaSupport(type = { HypermediaType.HAL })
+public class WebConfig extends WebMvcConfigurerAdapter implements ServletContextInitializer, EmbeddedServletContainerCustomizer {
 
 	private final Logger log = LoggerFactory.getLogger(WebConfig.class);
 	
@@ -32,6 +38,19 @@ public class WebConfig implements ServletContextInitializer, EmbeddedServletCont
         mappings.add("json", "text/html;charset=utf-8");
         
         container.setMimeMappings(mappings);
+	}
+	
+	@Override
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+
+		configurer
+			.favorParameter(true)
+			.parameterName("mediaType")
+			.ignoreAcceptHeader(true)
+			.useJaf(false)
+			.defaultContentType(MediaType.APPLICATION_JSON)
+			.mediaType("xml", MediaType.APPLICATION_XML)
+			.mediaType("json", MediaType.APPLICATION_JSON);		
 	}
 
 	@Override
