@@ -36,7 +36,7 @@ public class LearnerInfoEndpoint {
 	}	
 	
 	@HystrixCommand(commandProperties = {
-			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "60000")
 	})	
 	@RequestMapping(method = RequestMethod.GET, value = "")
 	public ResponseEntity<PagedResources<LearnerInfoResource>> getLearnerInfo(Pageable pageable, PagedResourcesAssembler<PSLearnerInfoV> assembler) {

@@ -1,18 +1,23 @@
 package edu.capella.webb.peoplesoft.server.domain.learnerInfo;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 import edu.capella.webb.peoplesoft.server.rest.LearnerInfoEndpoint;
+import edu.capella.webb.peoplesoft.server.util.DiscoveryAwareLinkBuilder;
 
 @Component
 public class LearnerInfoAssembler extends ResourceAssemblerSupport<PSLearnerInfoV, LearnerInfoResource> {
 
-	public LearnerInfoAssembler() {
+	private DiscoveryAwareLinkBuilder discoveryAwareLinkBuilder;
+	
+	@Autowired
+	public LearnerInfoAssembler(DiscoveryAwareLinkBuilder discoveryAwareLinkBuilder) {
 		super(LearnerInfoEndpoint.class, LearnerInfoResource.class);
+		
+		this.discoveryAwareLinkBuilder = discoveryAwareLinkBuilder;
 	}
 
 	@Override
@@ -39,11 +44,13 @@ public class LearnerInfoAssembler extends ResourceAssemblerSupport<PSLearnerInfo
 		resource.setValidAttempt(entity.getValidAttempt());
 		resource.setEnrollAddDate(entity.getEnrollAddDate());
 		resource.setEnrollDropDate(entity.getEnrollDropDate());
-		resource.setOprId(entity.getOprId());
+		resource.setOprId(entity.getOprId());		
+			
+		// resource links
 		
-		resource.add(linkTo(methodOn(LearnerInfoEndpoint.class).getLearnerInfoByEmployeeId(entity.getEmployeeId())).withSelfRel());
-		
-//		resource.add(linkTo(LearnerInfoEndpoint.class).slash(entity.getEmployeeId()).withSelfRel());
+		Link selfLink = discoveryAwareLinkBuilder.buildLearnerInfoSelfLink(entity);
+		if (selfLink != null)
+			resource.add(selfLink);		
 		
 		return resource;
 	}
