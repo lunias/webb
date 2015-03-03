@@ -12,9 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import edu.capella.webb.oauth.server.domain.Authority;
-import edu.capella.webb.oauth.server.domain.User;
 import edu.capella.webb.oauth.server.domain.oauth.OAuthClientDetails;
 import edu.capella.webb.oauth.server.domain.oauth.OAuthScope;
+import edu.capella.webb.oauth.server.domain.user.User;
 import edu.capella.webb.oauth.server.repository.AuthorityRepository;
 import edu.capella.webb.oauth.server.repository.UserRepository;
 import edu.capella.webb.oauth.server.repository.oauth.OAuthClientDetailsRepository;
@@ -61,6 +61,9 @@ public class H2DataInitializer implements InitializingBean {
 		
 		List<OAuthScope> oauthScopes = Arrays.asList(new OAuthScope[] {
 			new OAuthScope("super"),
+			new OAuthScope("oauth-server.read"),
+			new OAuthScope("oauth-server.write"),
+			new OAuthScope("oauth-server.delete"),			
 			new OAuthScope("peoplesoft-server.read"),
 			new OAuthScope("peoplesoft-server.write"),
 			new OAuthScope("peoplesoft-server.delete")
@@ -89,8 +92,8 @@ public class H2DataInitializer implements InitializingBean {
 				break;
 				
 			case "iguide":
-				details.addScope(oauthScopes.get(1));
-				details.addScope(oauthScopes.get(2));
+				details.addScope(oauthScopes.get(4));
+				details.addScope(oauthScopes.get(5));
 
 				break;
 				

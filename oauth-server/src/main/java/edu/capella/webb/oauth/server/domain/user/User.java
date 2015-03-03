@@ -1,4 +1,4 @@
-package edu.capella.webb.oauth.server.domain;
+package edu.capella.webb.oauth.server.domain.user;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -23,6 +23,7 @@ import org.hibernate.validator.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import edu.capella.webb.oauth.server.domain.Authority;
 import edu.capella.webb.oauth.server.domain.oauth.OAuthClientDetails;
 
 @Entity
@@ -39,7 +40,7 @@ public class User implements Serializable {
     @Pattern(regexp = "^[a-z0-9]*$")
     @Size(min = 1, max = 50)
     @Column(length = 50, unique = true, nullable = false)
-    private String login;
+    private String username;
 
     @JsonIgnore
     @NotNull
@@ -77,7 +78,6 @@ public class User implements Serializable {
             name = "T_USER_AUTHORITY",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Authority> authorities = new HashSet<>();
     
     @JsonIgnore
@@ -91,9 +91,9 @@ public class User implements Serializable {
     public User() {
 	}        
     
-    public User(String login, String password, String firstName, String lastName, String email) {
+    public User(String username, String password, String firstName, String lastName, String email) {
 
-		this.login = login;
+		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -110,12 +110,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -201,7 +201,7 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (!login.equals(user.login)) {
+        if (!username.equals(user.username)) {
             return false;
         }
 
@@ -210,13 +210,13 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return login.hashCode();
+        return username.hashCode();
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "login='" + login + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

@@ -24,3 +24,12 @@ out
 .settings
 
 gradle-app.setting
+
+node
+node_modules
+bower_components
+dist
+.tmp
+.sass-cache
+.DS_Store
+.merge_file*

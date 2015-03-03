@@ -1,0 +1,28 @@
+<div ng-cloak>
+	<div class="row">
+		<div class="col-md-12">
+
+			<div ng-switch="isAuthenticated()">
+
+				<div class="alert alert-success" ng-switch-when="true"
+					translate="main.logged.message"
+					translate-values="{username: '{{account.login}}'}">
+					You are logged in as user "Admin".
+				</div>
+
+			</div>
+
+			<div class="page-header">
+				<h1>Webb User Account and Authentication Server</h1>
+			</div>
+
+			<div ng-switch="isAuthenticated()">
+			
+				<div id="user-grid" ng-show="isInRole('ROLE_ADMIN')" external-scopes="gridScope" ui-grid="userGridOptions" ui-grid-infinite-scroll ui-grid-cellNav ui-grid-auto-resize>
+				</div>						
+			
+			</div>
+
+		</div>
+	</div>
+</div>

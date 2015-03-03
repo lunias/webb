@@ -27,7 +27,7 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import edu.capella.webb.oauth.server.domain.Authority;
-import edu.capella.webb.oauth.server.domain.User;
+import edu.capella.webb.oauth.server.domain.user.User;
 
 @Entity
 @Table(name = "oauth_client_details")

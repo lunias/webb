@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.capella.webb.oauth.server.domain.Authority;
-import edu.capella.webb.oauth.server.domain.User;
+import edu.capella.webb.oauth.server.domain.user.User;
 import edu.capella.webb.oauth.server.repository.UserRepository;
 
 @Component("customUserDetailsService")
@@ -39,7 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         
         String lowercaseUsername = username.toLowerCase();
         
-        User userFromDatabase = userRepository.findOneByLogin(username);        
+        User userFromDatabase = userRepository.findOneByUsername(username);        
         if (userFromDatabase == null) {
             throw new UsernameNotFoundException("User " + lowercaseUsername + " was not found in the database");
         }
