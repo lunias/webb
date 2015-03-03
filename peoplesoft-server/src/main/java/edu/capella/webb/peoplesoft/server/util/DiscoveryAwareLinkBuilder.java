@@ -28,11 +28,11 @@ public class DiscoveryAwareLinkBuilder {
 	}
 	
 	@HystrixCommand(fallbackMethod = "defaultLearnerInfoSelfLink")
-	public Link buildLearnerInfoSelfLink(PSLearnerInfoV learnerInfo) {				
+	public Link buildLearnerInfoSelfLink(PSLearnerInfoV learnerInfo) {						
 		
 		InstanceInfo instance = discoveryClient.getNextServerFromEureka("peoplesoft-server", false);
 		
-		String requestUrl = instance.getHomePageUrl() + LEARNER_INFO_ENDPOINT.value()[0] + "/{learnerId}";
+		String requestUrl = instance.getHomePageUrl() + LEARNER_INFO_ENDPOINT.value()[0] + "/{id}";
 		
 		String url = UriComponentsBuilder.fromHttpUrl(requestUrl)
 				.buildAndExpand(learnerInfo.getEmployeeId())

@@ -57,7 +57,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ServletContext
 	public void onStartup(ServletContext servletContext)
 			throws ServletException {
 		
-        if (environment.acceptsProfiles(Constant.SPRING_PROFILE_DEVELOPMENT)) {
+        if (environment.acceptsProfiles(Constant.SPRING_PROFILE_DEVELOPMENT, Constant.SPRING_PROFILE_STAND_ALONE)) {
             initH2Console(servletContext);
         }		
 	}

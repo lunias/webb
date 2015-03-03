@@ -5,6 +5,7 @@ buildscript {
         springCloudNetflixVersion = '1.0.0.RC2'
         springHateoasVersion = '0.16.0.RELEASE'
         springPluginVersion = '1.1.0.RELEASE'
+        springSecurityOAuthVersion = '2.0.6.RELEASE'
         jacksonDataTypeVersion = '2.4.4'
         oracleVersion = '1.0.0'
     }
@@ -83,6 +84,22 @@ project(':config-server') {
     dependencies {
         compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
         compile("org.springframework.cloud:spring-cloud-config-server:${springCloudVersion}")
+    }
+}
+
+project(':oauth-server') {
+    jar {
+        baseName = 'oauth-server'
+        version = '0.0.1-SNAPSHOT'
+    }
+
+    dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
+        compile("org.springframework.boot:spring-boot-starter-security")
+        compile("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOAuthVersion}")
+        compile("org.springframework.boot:spring-boot-starter-freemarker")
+        compile("org.springframework.boot:spring-boot-starter-data-jpa")
+        compile("com.h2database:h2")        
     }
 }
 
