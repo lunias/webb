@@ -28,7 +28,7 @@ angular.module('cardsOauthApp')
             },
             logout: function() {
                 // logout from the server
-                $http.post('api/logout').then(function() {
+                $http.post('/uaa/logout').then(function() {
                     localStorageService.clearAll();
                     $state.go('login');
                 });
