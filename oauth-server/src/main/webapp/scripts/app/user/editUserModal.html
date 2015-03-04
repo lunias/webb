@@ -1,5 +1,5 @@
 <div class="modal-header">
-	<h3 class="modal-title">Edit {{ user.login }}</h3>
+	<h3 class="modal-title">Edit {{ user.username }}</h3>
 </div>
 
 <div class="modal-body">
@@ -14,7 +14,7 @@
 
 			<label>Username</label> <input type="text" class="form-control"
 				name="username" placeholder="username"
-				focus-me="{{ field === 'login' }}" ng-model="user.login"
+				focus-me="{{ field === 'username' }}" ng-model="user.username"
 				ng-disabled=true>
 		</div>
 
