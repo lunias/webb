@@ -1,4 +1,4 @@
-package edu.capella.webb.oauth.server.domain.oauth;
+package edu.capella.webb.oauth.server.domain.oauth.clientDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.util.StringUtils;
@@ -27,6 +25,8 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import edu.capella.webb.oauth.server.domain.Authority;
+import edu.capella.webb.oauth.server.domain.oauth.OAuthResource;
+import edu.capella.webb.oauth.server.domain.oauth.OAuthScope;
 import edu.capella.webb.oauth.server.domain.user.User;
 
 @Entity
@@ -70,7 +70,6 @@ public class OAuthClientDetails implements ClientDetails, Serializable {
             name = "oauth_client_resource",
             joinColumns = {@JoinColumn(name = "client_id", referencedColumnName = "client_id")},
             inverseJoinColumns = {@JoinColumn(name = "resource_id", referencedColumnName = "resource_id")})
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<OAuthResource> resources = new HashSet<>();
         
     @JsonIgnore
@@ -79,7 +78,6 @@ public class OAuthClientDetails implements ClientDetails, Serializable {
             name = "oauth_client_scope",
             joinColumns = {@JoinColumn(name = "client_id", referencedColumnName = "client_id")},
             inverseJoinColumns = {@JoinColumn(name = "scope_name", referencedColumnName = "scope")})
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)    
     private Set<OAuthScope> scopes = new HashSet<>();       
     
     @JsonIgnore
@@ -88,7 +86,6 @@ public class OAuthClientDetails implements ClientDetails, Serializable {
             name = "oauth_client_authority",
             joinColumns = {@JoinColumn(name = "client_id", referencedColumnName = "client_id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)      
     private Set<Authority> authorities = new HashSet<>();
     
     @JsonIgnore

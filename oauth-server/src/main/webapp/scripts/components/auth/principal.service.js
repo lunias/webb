@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cardsOauthApp')
-    .factory('Principal', function Principal($rootScope, $q, Account) {
+    .factory('Principal', function Principal($rootScope, $q, User) {
         var _identity,
             _authenticated = false;
 
@@ -52,9 +52,9 @@ angular.module('cardsOauthApp')
                 }
 
                 // retrieve the identity data from the server, update the identity object, and then resolve.
-                Account.get().$promise
+                User.findMe().$promise
                     .then(function (account) {
-                        _identity = account.data;
+                        _identity = account;
                         _authenticated = true;
                         deferred.resolve(_identity);
                     })

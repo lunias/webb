@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.provider.ClientRegistrationService;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.stereotype.Component;
 
-import edu.capella.webb.oauth.server.domain.oauth.OAuthClientDetails;
+import edu.capella.webb.oauth.server.domain.oauth.clientDetails.OAuthClientDetails;
 import edu.capella.webb.oauth.server.repository.oauth.OAuthClientDetailsRepository;
 
 @Component("customJpaClientDetailsService")

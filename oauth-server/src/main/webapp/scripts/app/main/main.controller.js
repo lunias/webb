@@ -25,7 +25,7 @@ angular.module('cardsOauthApp').controller('MainController',
 				useExternalSorting: true,
 				enableRowSelection: true,
 				columnDefs : [ {
-					field : 'login',
+					field : 'username',
 					allowCellFocus: false
 				}, {
 					field : 'firstName',
@@ -173,7 +173,7 @@ angular.module('cardsOauthApp').controller('MainController',
 			  						
 			  						var deferred = $q.defer();
 			  						
-			  						User.findAllClients({login: user.login}, function(clients) {
+			  						User.findAllClients({username: user.username}, function(clients) {
 			  							
 			  							var mapped = clients.map(function(client) {
 			  								return client.clientId;
@@ -192,7 +192,7 @@ angular.module('cardsOauthApp').controller('MainController',
 			  				if (user.remove) {
 			  					
 			  					user = user.user;
-			  					User.remove({login: user.login}, function(deleteResponse) {
+			  					User.remove({username: user.username}, function(deleteResponse) {
 			  						
 				  					scrollTopAndReloadGridData($scope.gridApi);
 			  						
@@ -202,7 +202,7 @@ angular.module('cardsOauthApp').controller('MainController',
 			  					
 			  				} else {
 			  					
-				  				User.update({login: user.login}, user, function(userResponse) {
+				  				User.update({username: user.username}, user, function(userResponse) {
 				  					
 				  					scrollTopAndReloadGridData($scope.gridApi);
 				  					

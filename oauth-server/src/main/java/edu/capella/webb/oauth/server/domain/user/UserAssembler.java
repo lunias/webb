@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
+import edu.capella.webb.oauth.server.domain.Authority;
 import edu.capella.webb.oauth.server.rest.UserEndpoint;
 
 @Component
@@ -23,6 +24,10 @@ public class UserAssembler extends ResourceAssemblerSupport<User, UserResource> 
 		UserResource resource = instantiateResource(entity);
 		
 		BeanUtils.copyProperties(entity, resource, "password");
+		
+		for (Authority auth : entity.getAuthorities()) {
+			resource.getRoles().add(auth.getName());
+		}
 		
 		resource.add(linkTo(UserEndpoint.class).slash(entity.getUsername()).withSelfRel());
 		resource.add(linkTo(UserEndpoint.class).slash(entity.getUsername()).slash(CLIENTS).withRel(CLIENTS));

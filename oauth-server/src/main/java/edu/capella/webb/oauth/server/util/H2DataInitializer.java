@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import edu.capella.webb.oauth.server.domain.Authority;
-import edu.capella.webb.oauth.server.domain.oauth.OAuthClientDetails;
 import edu.capella.webb.oauth.server.domain.oauth.OAuthScope;
+import edu.capella.webb.oauth.server.domain.oauth.clientDetails.OAuthClientDetails;
 import edu.capella.webb.oauth.server.domain.user.User;
 import edu.capella.webb.oauth.server.repository.AuthorityRepository;
 import edu.capella.webb.oauth.server.repository.UserRepository;
@@ -57,6 +57,15 @@ public class H2DataInitializer implements InitializingBean {
 				new User("test", passwordEncoder.encode("password"), "Test", "Test", "test@test.com")
 		});
 		
+		for (User user : users) {
+			if ("eanderson".equals(user.getUsername())) {
+				user.addAuthority(authorities.get(0));
+				user.addAuthority(authorities.get(1));
+			} else {
+				user.addAuthority(authorities.get(0));
+			}
+		}		
+		
 		users = userRepository.save(users);
 		
 		List<OAuthScope> oauthScopes = Arrays.asList(new OAuthScope[] {
@@ -67,7 +76,7 @@ public class H2DataInitializer implements InitializingBean {
 			new OAuthScope("peoplesoft-server.read"),
 			new OAuthScope("peoplesoft-server.write"),
 			new OAuthScope("peoplesoft-server.delete")
-		});
+		});		
 		
 		oauthScopes = oauthScopeRepository.save(oauthScopes);
 		
@@ -75,8 +84,6 @@ public class H2DataInitializer implements InitializingBean {
 				new OAuthClientDetails("readiness-center", "rcsecret", "password", "", 1800, 0, "", "true"),
 				new OAuthClientDetails("iguide", "igsecret", "password", "", 1800, 0, "", "true")
 		});
-		
-		oauthClientDetails = oauthClientDetailsRepository.save(oauthClientDetails);
 		
 		for (OAuthClientDetails details : oauthClientDetails) {
 			
@@ -100,9 +107,9 @@ public class H2DataInitializer implements InitializingBean {
 			default:
 				log.warn("unhandled client id encountered");
 			}
-		}
+		}		
 		
-		oauthClientDetails = oauthClientDetailsRepository.save(oauthClientDetails);		
+		oauthClientDetails = oauthClientDetailsRepository.save(oauthClientDetails);				
 	}
 
 }

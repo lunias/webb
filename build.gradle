@@ -100,7 +100,8 @@ project(':oauth-server') {
         compile("org.springframework.boot:spring-boot-starter-freemarker")
         compile("org.springframework.boot:spring-boot-starter-data-jpa")
         compile("com.h2database:h2")        
-        compile("org.springframework.hateoas:spring-hateoas:${springHateoasVersion}")        
+        compile("org.springframework.hateoas:spring-hateoas:${springHateoasVersion}")
+        compile("org.springframework.plugin:spring-plugin-core:${springPluginVersion}")         
     }
 }
 

@@ -2,7 +2,7 @@
 
 angular.module('cardsOauthApp').factory('User', function($resource) {
 	
-    return $resource('api/users/:login', {}, {
+    return $resource('api/users/:username', {}, {
     	
         'findAll': { method: 'GET', isArray: false,
         	interceptor: {
@@ -17,8 +17,16 @@ angular.module('cardsOauthApp').factory('User', function($resource) {
         },
         
         'findAllClients': { method: 'GET', isArray: true,
-        	url: 'api/users/:login/clients' 
-        },        
+        	url: 'api/users/:username/clients' 
+        },
+        
+        'findMe': { method: 'GET', isArray: false,
+        	url: 'api/users/me'
+        },
+        
+        'updateMe': { method: 'PUT', isArray:false,
+        	url: 'api/users/me'
+        },
         
         'update': { method: 'PUT' },
         'remove': { method: 'DELETE' }

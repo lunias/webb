@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,14 +18,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import edu.capella.webb.oauth.server.domain.Authority;
-import edu.capella.webb.oauth.server.domain.oauth.OAuthClientDetails;
+import edu.capella.webb.oauth.server.domain.oauth.clientDetails.OAuthClientDetails;
 
 @Entity
 @Table(name = "T_USER")
@@ -73,7 +72,7 @@ public class User implements Serializable {
     private String activationKey;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "T_USER_AUTHORITY",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -180,7 +179,11 @@ public class User implements Serializable {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
-    }    
+    }
+    
+    public void addAuthority(Authority authority) {
+    	this.authorities.add(authority);
+    }
 
     public Set<OAuthClientDetails> getClientDetails() {
 		return clientDetails;

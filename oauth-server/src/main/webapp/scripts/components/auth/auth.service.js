@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cardsOauthApp')
-    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password) {
+    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, User, Register, Activate, Password) {
         return {
             login: function (credentials, callback) {
                 var cb = callback || angular.noop;
@@ -70,7 +70,7 @@ angular.module('cardsOauthApp')
             updateAccount: function (account, callback) {
                 var cb = callback || angular.noop;
 
-                return Account.save(account,
+                return User.updateMe(account,
                     function () {
                         return cb(account);
                     },
